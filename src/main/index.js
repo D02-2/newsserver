@@ -1,8 +1,11 @@
 import fetch from 'node-fetch';
 import express from 'express';
+import cors from 'cors';
+
 
 const app = express()
 const port = process.env.PORT || 8000;
+app.use(cors())
 
 app.get('/news/:mode', async (req, res) => {
     const mode = req.params.mode;
