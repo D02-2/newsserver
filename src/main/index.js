@@ -2,11 +2,17 @@ import fetch from 'node-fetch';
 import express from 'express';
 
 const app = express()
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8000;
 
 app.get('/news/:mode', async (req, res) => {
     const mode = req.params.mode;
     const articles = await fetchData(mode);
+  res.send(articles)
+})
+
+app.get('/news/search/:q', async (req, res) => {
+    const query = req.params.q;
+    const articles = await fetchData('p', query);
   res.send(articles)
 })
 
@@ -15,7 +21,7 @@ app.listen(port, () => {
 })
 
 
-function fetchData(apiParam) {
+function fetchData(apiParam, searchText) {
     let newsApi =
     "https://newsapi.org/v2/top-headlines?country=de&apiKey=1ac2aebda1c64e04a5bd4828db18f788";
 
